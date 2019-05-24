@@ -8,15 +8,12 @@
       "themes": "src/themes/"
     },
     "output": {
-      "packaged": "dist/",
-      "uncompressed": "dist/components/",
-      "compressed": "dist/components/",
-      "themes": "dist/themes/"
+      "packaged": "../src/assets/semantic/dist/",
+      "uncompressed": "../src/assets/semantic/dist/components/",
+      "compressed": "../src/assets/semantic/dist/components/",
+      "themes": "../src/assets/semantic/dist/themes/"
     },
-    "clean": "dist/"
+    "clean": "../src/assets/semantic/dist/"
   },
-  "permission": false,
-  "autoInstall": false,
-  "rtl": false,
   "version": "2.4.2"
 }

@@ -4,7 +4,7 @@ class NavBar extends React.Component {
   state = { active: 1 };
   render() {
     return (
-      <div className="ui  pointing blue menu">
+      <div className="ui  pointing  menu">
         <Link
           to="/"
           className={`item ${this.state.active === 1 ? "active" : ""}`}
