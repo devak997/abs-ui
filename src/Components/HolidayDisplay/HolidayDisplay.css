@@ -1,0 +1,27 @@
+.holiday-display {
+    width: 100%;
+    padding: 10px;
+   
+}
+
+.holiday-form {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+}
+
+.holiday-table {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+}
+
+.message-display {
+    margin-top: 10px;
+}
+
+.header-display {
+    padding: 0px 0px 10px 0px;
+}
