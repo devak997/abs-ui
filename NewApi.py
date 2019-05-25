@@ -103,6 +103,13 @@ def getHolidays():
         output.append({"date": entry['Date']})
     return jsonify({"result": output})
 
+@app.route("/getLogs",methods = ['GET'])
+def getLogs():
+    output=[]
+    for entry in logDetails.find():
+        output.append({"time":entry['time'],"date":entry['date']})
+    return jsonify({"result":output})
+
 @app.route("/addHoliday", methods=['POST'])
 def addHoliday():
     jsonRequest = bytesToJson(request.data)
@@ -135,7 +142,7 @@ def clearHolidays():
     holidayData.drop()
     return jsonify({"status": "Successfully Cleared!"})
         
-@app.route("/clearLog", methods = ['GET'])    
+@app.route("/clearLog", methods = ['POST'])    
 def clearLog():
     logDetails.drop()
     return 'restored to defaults'

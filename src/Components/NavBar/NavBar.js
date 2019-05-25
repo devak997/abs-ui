@@ -28,12 +28,19 @@ class NavBar extends React.Component {
         >
           Holidays
         </Link>
+        <Link
+          to="/logs"
+          className={`item ${this.state.active === 4 ? "active" : ""}`}
+          onClick={() => this.setState({ active: 4 })}
+        >
+          Logs
+        </Link>
 
         <div className="right menu">
           <Link
             to="/"
-            className={`item ${this.state.active === 4 ? "active" : ""}`}
-            onClick={() => this.setState({ active: 4 })}
+            className={`item ${this.state.active === 5 ? "active" : ""}`}
+            onClick={() => this.setState({ active: 5 })}
           >
             Documentation
           </Link>
