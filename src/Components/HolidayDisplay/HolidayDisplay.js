@@ -77,11 +77,16 @@ class HolidayDisplay extends React.Component {
       .catch(error => console.log(error));
   };
 
+  tryAgain = () => {
+    this.setState({loading: true});
+    this.getHolidays();
+  }
+
   displayData = () => {
     if (this.state.loading === true) {
       return <Loader message="Contacting Server" />;
     } else if (this.state.error !== "" && this.state.error !== false) {
-      return <ErrorDisplay message={this.state.error} />;
+      return <ErrorDisplay message={this.state.error} tryAgain={this.tryAgain}/>;
     } else {
       return (
         <HolidayTable
