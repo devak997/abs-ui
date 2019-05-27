@@ -1,8 +1,6 @@
 import React from "react";
 import HomeDisplay from '../HomeDisplay/HomeDisplay'
-import Loader from "../Loader/Loader";
 import Raspberry from '../../api/Raspberry'
-import ErrorDisplay from "../ErrorDisplay/ErrorDisplay";
 
 class Home extends React.Component {
   state={
@@ -34,14 +32,6 @@ class Home extends React.Component {
         });
       });
   }
-  displayData = () =>{
-    if (this.state.loading === true) {
-      return <Loader message="Contacting Server" />;
-    } else if (this.state.error !== "" && this.state.error !== false) {
-      return <ErrorDisplay message={this.state.error} />;}
-    else{
-
-    }};
 
   render() {
     return (
