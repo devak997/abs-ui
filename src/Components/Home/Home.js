@@ -1,22 +1,24 @@
 import React from "react";
-import HomeDisplay from '../HomeDisplay/HomeDisplay'
-import Raspberry from '../../api/Raspberry'
+import HomeDisplay from "../HomeDisplay/HomeDisplay";
+import Raspberry from "../../api/Raspberry";
+import HomeLogin from "../HomeLogin/HomeLogin";
+import './Home.css'
 
 class Home extends React.Component {
-  state={
-    schedule : [],
+  state = {
+    schedule: [],
     loading: true,
-    error: "",
-  }
-  componentDidMount () {
+    error: ""
+  };
+  componentDidMount() {
     this.getNextTime();
   }
 
-  getNextTime = () =>{
-    Raspberry.get('/currentSchedule')
+  getNextTime = () => {
+    Raspberry.get("/currentSchedule")
       .then(response => {
         if (response.status === 200) {
-            console.log(response)
+          console.log(response);
           this.setState({
             schedule: response.data.result,
             loading: false,
@@ -31,15 +33,19 @@ class Home extends React.Component {
           error: `${error}`
         });
       });
-  }
+  };
 
   render() {
     return (
-      <div>
-      <HomeDisplay
-      schedule ={this.state.schedule}></HomeDisplay>
+      <div className="home-login">
+          <div className="login-display">
+            <HomeLogin/>
       </div>
-      );
+      <div className='home-display'>
+      <HomeDisplay schedule={this.state.schedule} />
+      </div>
+      </div>
+    );
   }
 }
 

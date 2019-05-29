@@ -4,27 +4,79 @@ import { Route, Switch } from "react-router-dom";
 import ScheduleDisplay from "./Components/ScheduleDisplay/ScheduleDisplay";
 import HolidayDisplay from "./Components/HolidayDisplay/HolidayDisplay";
 import LogDisplay from "./Components/LogDisplay/LogDisplay";
-import Documentation from './Components/Documentation/Documentation'
+import Documentation from './Components/Documentation/Documentation';
 import Home from "./Components/Home/Home";
-import Helmet from 'react-helmet'
+import LoginPage from './Components/LoginPage/LoginPage';
+import HomeDisplay from './Components/HomeDisplay/HomeDisplay';
+import Raspberry from './api/Raspberry';
+import './App.css'
 
 class App extends React.Component {
+  state = {
+  schedule:[]};
+
+  componentDidMount() {
+    this.getNextTime();
+  }
+
+  getNextTime = () => {
+    Raspberry.get('/currentSchedule')
+      .then(response => {
+        if (response.status === 200) {
+          this.setState({
+            schedule: response.data.result,
+          });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  loginUser = (data) => {
+    Raspberry.post('/login', { data })
+      .then(response => {
+        if (response.data.login === true) {
+          sessionStorage.setItem('login',true);
+          window.location.reload();
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+  }
+
+  displayContent = () => {
+    if (JSON.parse(sessionStorage.getItem('login')) === true) {
+      return (
+        <div>
+          <NavBar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/schedule" component={ScheduleDisplay} />
+            <Route path="/holidays" component={HolidayDisplay} />
+            <Route path="/logs" component={LogDisplay} />
+            <Route path='/docs' component={Documentation} />
+          </Switch>
+        </div>
+      );
+    } else {
+      return (
+        <div className="app-login">
+          <h1 class="ui centered header">Welcome To Automated Bell System</h1>
+          <div className="login-form">
+            <LoginPage loginUser={this.loginUser}/>
+
+          </div>
+          <div className="home-display">
+            <HomeDisplay schedule={this.state.schedule} />
+          </div>
+
+        </div>
+      );
+    }
+  }
   render() {
-    return (
-      <div>
-        <NavBar />
-        <Helmet>
-                <style>{'body { background-color: rgb(245,235,245) }'}</style>
-            </Helmet>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/schedule" component={ScheduleDisplay} />
-          <Route path="/holidays" component={HolidayDisplay} />
-          <Route path="/logs" component={LogDisplay}/>
-          <Route path='/docs' component={Documentation}/>
-        </Switch>
-      </div>
-    );
+    return this.displayContent();
   }
 }
 

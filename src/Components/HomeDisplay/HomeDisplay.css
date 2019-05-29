@@ -1,44 +1,26 @@
-.NextTime{
-    padding: 2%;
-    margin-left:10%;
-    margin-right:2%;
-    margin-top:7%;
-    width: 40%;
+.prevCard{
+   margin-bottom:20% !important;
+   margin-left: 30% !important; 
+   margin-top:13% !important;
 }
 
-.NextTime:hover{
-    transform: scale(1.15);
+.nextCard{
+    margin-top: 15%;
+    margin-left:30% !important;
+    margin-bottom: 15% !important;
 }
 
-
-
-.prevTime{
-    margin-top: 8%;
-    margin-right: 20%;
-    margin-left: 2%;
-    padding: 2%;
-    width: 30%;
+.prevCard:hover{
+    transform: scale(1.25);
 }
 
-.prevTime:hover{
-    transform: scale(1.15);
+.nextCard:hover{
+    transform: scale(1.25);
 }
-.main{
-    margin-top:-2%;
-    display: flex;
+
+.container{
+    border-left: solid black 1px;
+    margin-top: 1% !important;
+    
 }
-.page{
-    color: white !important;
-    padding: 5% !important;
-}
-.info{
-    padding: 6% !important;
-    width: 30% !important;
-    background: url('../../Images/bg1.jpeg') !important;
-    color: white !important;
-    font-size: 25px !important;
-    margin-left: 35% !important;
-}
-.info:hover{
-    transform: scale(1.15);
-}
+

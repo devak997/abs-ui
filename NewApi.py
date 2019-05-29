@@ -3,6 +3,7 @@ import pymongo
 import json
 from flask_cors import CORS
 from datetime import datetime
+import hashlib as h
 
 app = Flask(__name__)
 
@@ -23,6 +24,7 @@ defaultSchedule = db.defaultSchedule
 logDetails = db.logDetails
 holidayData = db.holidayData
 longBells = db.longBells
+userInfo = db.userInfo
 
 def getListFromCollection(mylist):
     stringList = list(map(lambda x: x["time"],mylist))
@@ -45,7 +47,28 @@ def bytesToJson(byteVal):
     strVal = byteVal.decode("utf-8").replace("'",'"')
     jsonVal = json.loads(strVal)
     return jsonVal
-            
+def getUserInfo(mylist):
+    userList = list(map(lambda x: x["username"],mylist))
+    passwordList = list(map(lambda x: x["password"],mylist))
+    return userList,passwordList
+
+@app.route("/login", methods=['POST'])
+def login():
+    jsonRequest = bytesToJson(request.data)
+    data = jsonRequest.get("data")
+    userList,passwordList = getUserInfo(list(userInfo.find({},{"username":1,"password":1,"_id":0})))
+    username = data['username']
+    password = h.sha256(data['password'].encode()).hexdigest()
+    if username in userList:
+        userIndex = userList.index(data['username'])
+        if password == passwordList[userIndex]:
+            result = {"login": True}
+        else:
+            result={"login":False}
+    else:
+        result={"login":False}
+    return jsonify(result)
+
 @app.route("/currentSchedule",methods = ['GET'])
 def getCurrentSchedule():
     output = []

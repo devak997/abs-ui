@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "mdbreact": "^4.15.0",
     "react": "^16.8.6",
     "react-datepicker": "^2.5.0",
     "react-dom": "^16.8.6",
@@ -13,7 +14,7 @@
     "react-time-picker": "^3.5.2",
     "react-timekeeper": "^1.1.0",
     "semantic-ui": "^2.4.2",
-    "semantic-ui-react": "^0.87.1"
+    "semantic-ui-carousel-react": "^1.0.4"
   },
   "scripts": {
     "start": "react-scripts start",

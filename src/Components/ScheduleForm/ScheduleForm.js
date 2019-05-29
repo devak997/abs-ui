@@ -44,7 +44,7 @@ class ScheduleForm extends React.Component {
   onFormSubmit = e => {
     e.preventDefault();
     const delay =
-      this.state.selectedValue === "2" || this.state.isChecked ? 5 : 3;
+      this.state.selectedValue === "2" || this.state.isChecked ? 5 : 2;
     const isEndBell = this.state.isChecked;
     this.props.submitForm(this.state.time, delay, isEndBell);
   };
