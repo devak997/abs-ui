@@ -1,5 +1,4 @@
 import React from 'react';
-import LoginError from '../LoginError/LoginError'
 
 class LoginPage extends React.Component{
     state={ 

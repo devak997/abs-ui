@@ -20,9 +20,15 @@ class HolidayDisplay extends React.Component {
     showMessage: false
   };
 
-  onFormSubmit = date => {
+  onFormSubmit = (date,endDate) => {
+    let data;
     this.setState({ submitStatus: "Loading...", formSubmitted: true });
-    const data = { date: date };
+    if(endDate === undefined){
+    data = { date: date };
+    }
+    else{
+      data = {date:date, endDate:endDate}
+    }
     Raspberry.post("/addHoliday", { data })
       .then(response => {
         if (response.status === 200) {
