@@ -21,6 +21,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getNextTime();
+    sessionStorage.setItem("login", false);
   }
 
   getNextTime = () => {
