@@ -139,6 +139,9 @@ def addHoliday():
     jsonRequest = bytesToJson(request.data)
     data = jsonRequest.get("data")
     holidayList = getHolidayFromCollection(list(holidayData.find({},{ "Date":1,"_id": 0})))
+    if(data == None):
+        result = {'status': 'Entered date is less than current date'}
+        return jsonify(result)
     if('endDate' not in dict.keys(data)):
         if data["date"] in holidayList:
             print("Date already present in holiday list")

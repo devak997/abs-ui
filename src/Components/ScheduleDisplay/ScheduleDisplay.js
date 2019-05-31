@@ -17,7 +17,8 @@ class ScheduleDisplay extends React.Component {
     formSubmitted: false,
     submitStatus: "",
     submitError: false,
-    showMessage: false
+    showMessage: false,
+    statusCode: null
   };
 
   componentDidMount() {
@@ -70,7 +71,7 @@ class ScheduleDisplay extends React.Component {
       .then(response => {
         if (response.status === 200) {
           this.setState({ showMessage: true });
-          this.setState({ submitStatus: response.data.status });
+          this.setState({ submitStatus: response.data.status, statusCode: response.data.code  });
         } else {
           this.setState({ submitError: true });
           this.setState({ submitStatus: "Unable to send data to API" });
@@ -94,12 +95,19 @@ class ScheduleDisplay extends React.Component {
           />
         );
       } else if (this.state.showMessage) {
-        return (
-          <SuccessMessage
+        if (this.state.statusCode === 1) {
+          return (
+            <SuccessMessage
+              message={this.state.submitStatus}
+              handleXClick={this.handleXClick}
+            />
+          );
+        } else {
+          return (<ErrorDisplay
             message={this.state.submitStatus}
             handleXClick={this.handleXClick}
-          />
-        );
+          />);
+        }
       } else {
         return <h3>Loading</h3>;
       }
@@ -122,7 +130,7 @@ class ScheduleDisplay extends React.Component {
   };
 
   tryAgain = () => {
-    this.setState({loading: true});
+    this.setState({ loading: true });
     this.getSchedule();
   }
 

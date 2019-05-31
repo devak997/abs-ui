@@ -5,64 +5,59 @@ import "react-datepicker/dist/react-datepicker.css";
 class HolidayForm extends React.Component {
   state = {
     selectedDate: new Date(),
-    endDate: new Date()
+    endDate: new Date(),
+    selectedOpt: ""
   };
 
   onSubmitClicked = e => {
     e.preventDefault();
     this.props.onFormSubmit(
-      this.state.selectedDate.toLocaleDateString("en-GB")
+      this.state.selectedDate
     );
   };
 
-  onVacationSubmitClicked = e =>{
+  onVacationSubmitClicked = e => {
     e.preventDefault();
-    if(this.state.endDate !== new Date()){
+    if (this.state.endDate !== new Date()) {
       this.props.onFormSubmit(
-        this.state.selectedDate.toLocaleDateString("en-GB"),
-        this.state.endDate.toLocaleDateString('en-GB')
+        this.state.selectedDate,
+        this.state.endDate
       );
     }
-  }
+  };
 
   handleChange = e => {
-    let selection = document.getElementById("selectHoliday").value;
-    if (selection === "1") {
-      document.getElementById("single").style.display = "block";
-      document.getElementById("vacation").style.display = "none";
-    }
-    if (selection === "2") {
-      document.getElementById("vacation").style.display = "block";
-      document.getElementById("single").style.display = "none";
-      sessionStorage.setItem('endDate',new Date())
-    }
-    if(selection === ''){
-      document.getElementById("vacation").style.display = "none";
-      document.getElementById("single").style.display = "none";
-    }
+    this.setState({ selectedOpt: e.target.value})
+    
   };
 
   render() {
     return (
       <div>
-        <div className="field">
-          <lable>
-            <i className="calendar icon" />
-            Select Holiday Type
-          </lable>
-        </div>
-        <div className="field">
-          <select
-            class="ui selection dropdown"
-            id="selectHoliday"
-            onChange={this.handleChange}
-          >
-            <option value="">Select Type</option>
-            <option value="1">Single Holiday</option>
-            <option value="2">Vacation</option>
-          </select>
-        </div>
-        <div className="field" id="single" style={{ display: "none" }}>
+        <form className="ui form">
+          <div className="field">
+            <lable>
+              <i className="calendar icon" />
+              Select Holiday Type
+            </lable>
+          </div>
+          <div className="field">
+            <select
+              class="ui dropdown"
+              id="selectHoliday"
+              value={this.state.selectedOpt}
+              onChange={this.handleChange}
+            >
+              <option value="">Select Type</option>
+              <option value="1">Single Holiday</option>
+              <option value="2">Vacation</option>
+            </select>
+          </div>
+        </form>
+
+        <br/>
+
+        <div className="field" id="single" style={{ display: this.state.selectedOpt === "1" ? "" : "none" }}>
           <form className="ui form">
             <div className="field">
               <label>
@@ -86,7 +81,7 @@ class HolidayForm extends React.Component {
             </button>
           </form>
         </div>
-        <div className="field" id="vacation" style={{ display: "none" }}>
+        <div className="field" id="vacation" style={{ display: this.state.selectedOpt === "2" ? "" : "none" }}>
           <form className="ui form">
             <div className="field">
               <label>

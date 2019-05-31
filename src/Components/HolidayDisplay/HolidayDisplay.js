@@ -17,23 +17,31 @@ class HolidayDisplay extends React.Component {
     formSubmitted: false,
     submitStatus: "",
     submitError: false,
-    showMessage: false
+    showMessage: false,
+    statusCode: null
   };
 
   onFormSubmit = (date,endDate) => {
     let data;
     this.setState({ submitStatus: "Loading...", formSubmitted: true });
     if(endDate === undefined){
-    data = { date: date };
-    }
-    else{
-      data = {date:date, endDate:endDate}
+      if(new Date(date) > new Date() || new Date(date).toLocaleDateString('en-GB') === new Date().toLocaleDateString('en-GB'))
+      {
+        data = { date: date.toLocaleDateString('en-GB')};}
+      }
+    else{   
+      if(new Date(date) > new Date() || new Date(date).toLocaleDateString('en-GB') === new Date().toLocaleDateString('en-GB'))
+      {
+      if(new Date(endDate) > new Date() || new Date(endDate).toLocaleDateString('en-GB') === new Date().toLocaleDateString('en-GB'))
+        data = {date:date.toLocaleDateString('en-GB'), endDate:endDate.toLocaleDateString('en-GB')}
+      }   
     }
     Raspberry.post("/addHoliday", { data })
       .then(response => {
+        console.log(response);
         if (response.status === 200) {
           this.setState({ showMessage: true });
-          this.setState({ submitStatus: response.data.status });
+          this.setState({ submitStatus: response.data.status, statusCode: response.data.code });
         } else {
           this.setState({ submitError: true });
           this.setState({ submitStatus: "Unable to send data to API" });
@@ -84,7 +92,7 @@ class HolidayDisplay extends React.Component {
   };
 
   tryAgain = () => {
-    this.setState({loading: true});
+    this.setState({ loading: true });
     this.getHolidays();
   }
 
@@ -92,7 +100,7 @@ class HolidayDisplay extends React.Component {
     if (this.state.loading === true) {
       return <Loader message="Contacting Server" />;
     } else if (this.state.error !== "" && this.state.error !== false) {
-      return <ErrorDisplay message={this.state.error} tryAgain={this.tryAgain}/>;
+      return <ErrorDisplay message={this.state.error} tryAgain={this.tryAgain} />;
     } else {
       return (
         <HolidayTable
@@ -116,12 +124,19 @@ class HolidayDisplay extends React.Component {
           />
         );
       } else if (this.state.showMessage) {
-        return (
-          <SuccessMessage
+        if (this.state.statusCode === 1)  {
+          return (
+            <SuccessMessage
+              message={this.state.submitStatus}
+              handleXClick={this.handleXClick}
+            />
+          );
+        } else {
+          return (<ErrorDisplay
             message={this.state.submitStatus}
             handleXClick={this.handleXClick}
-          />
-        );
+          />);
+        }
       } else {
         return <h3>Loading</h3>;
       }

@@ -4,7 +4,6 @@ class LoginPage extends React.Component{
     state={ 
         loading: true,
         error: "",
-        login:false,
         submitError: false,
         showMessage: false,
         username: null,

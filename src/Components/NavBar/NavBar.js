@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 class NavBar extends React.Component {
   constructor(){
     super();
-    if(sessionStorage.getItem("activPage") === null)
+    if(sessionStorage.getItem("activePage") === null)
     {
       sessionStorage.setItem("activePage",1);
     }
