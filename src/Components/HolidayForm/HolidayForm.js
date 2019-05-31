@@ -20,8 +20,13 @@ class HolidayForm extends React.Component {
     e.preventDefault();
     if (this.state.endDate !== new Date()) {
       this.props.onFormSubmit(
+<<<<<<< HEAD
         this.state.selectedDate,
         this.state.endDate
+=======
+        this.state.selectedDate.toLocaleDateString("en-GB"),
+        this.state.endDate.toLocaleDateString("en-GB")
+>>>>>>> 09732c90f4fa9495e867951fc106c97fbcefe453
       );
     }
   };

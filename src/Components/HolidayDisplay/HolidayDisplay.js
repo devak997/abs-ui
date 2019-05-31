@@ -21,10 +21,21 @@ class HolidayDisplay extends React.Component {
     statusCode: null
   };
 
+<<<<<<< HEAD
+  onFormSubmit = (date, endDate) => {
+    let data;
+    this.setState({ submitStatus: "Loading...", formSubmitted: true });
+    if (endDate === undefined) {
+      data = { date: date };
+    }
+    else {
+      data = { date: date, endDate: endDate }
+=======
   onFormSubmit = (date,endDate) => {
     let data;
     this.setState({ submitStatus: "Loading...", formSubmitted: true });
     if(endDate === undefined){
+<<<<<<< HEAD
       if(new Date(date) > new Date() || new Date(date).toLocaleDateString('en-GB') === new Date().toLocaleDateString('en-GB'))
       {
         data = { date: date.toLocaleDateString('en-GB')};}
@@ -35,6 +46,13 @@ class HolidayDisplay extends React.Component {
       if(new Date(endDate) > new Date() || new Date(endDate).toLocaleDateString('en-GB') === new Date().toLocaleDateString('en-GB'))
         data = {date:date.toLocaleDateString('en-GB'), endDate:endDate.toLocaleDateString('en-GB')}
       }   
+=======
+    data = { date: date };
+    }
+    else{
+      data = {date:date, endDate:endDate}
+>>>>>>> 304fab7fa2386a3242a7c15143e8c4600bf3a7a3
+>>>>>>> 09732c90f4fa9495e867951fc106c97fbcefe453
     }
     Raspberry.post("/addHoliday", { data })
       .then(response => {
