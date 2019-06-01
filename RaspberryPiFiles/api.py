@@ -139,13 +139,46 @@ def addHoliday():
     jsonRequest = bytesToJson(request.data)
     data = jsonRequest.get("data")
     holidayList = getHolidayFromCollection(list(holidayData.find({},{ "Date":1,"_id": 0})))
+    @app.route("/addHoliday", methods=['POST'])
+def addHoliday():
+    jsonRequest = bytesToJson(request.data)
+    data = jsonRequest.get("data")
+    holidayList = getHolidayFromCollection(list(holidayData.find({},{ "Date":1,"_id": 0})))
+    if(data == None):
+        result = {'status': 'Entered date is less than current date'}
+        return jsonify(result)
     if('endDate' not in dict.keys(data)):
         if data["date"] in holidayList:
-            result = {"status" : "Date already present in holiday list", "code": 0}
+            result = {"status" : "Date already present in holiday list"}
             return jsonify(result)
         else:
-            result = {'status':"Successfully updated in holiday list", "code": 1}
+            result = {'status':"Successfully updated in holiday list"}
             holidayData.insert({"Date":data['date']})
+            return jsonify(result)
+
+    else:
+        startDateList = data["date"].split('/')
+        startDate = date(int(startDateList[2]),int(startDateList[1]),int(startDateList[0]))
+        endDateList = data["endDate"].split('/')
+        endDate = date(int(endDateList[2]),int(endDateList[1]),int(endDateList[0]))
+        delta = endDate - startDate
+        holidays = []
+        for i in range(delta.days + 1):
+            holidays.append(startDate + timedelta(days=i))
+        if(len(holidays)==0):
+            result = {"status":"End date must be greater than Start Date!"}
+            return jsonify(result)   
+    
+        if data["date"] in holidayList or data['endDate'] in holidayList:
+            print("Date already present in holiday list")
+            result = {"status" : "Date already present in holiday list"}
+            return jsonify(result)
+        else:
+            result = {'status':"Successfully updated in holiday list"}
+            for days in holidays:
+                day = days.strftime('%d/%m/%Y')
+                print(day)
+                holidayData.insert({'Date':day})
             return jsonify(result)
 
     else:

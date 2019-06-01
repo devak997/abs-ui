@@ -144,7 +144,6 @@ def addHoliday():
         return jsonify(result)
     if('endDate' not in dict.keys(data)):
         if data["date"] in holidayList:
-            print("Date already present in holiday list")
             result = {"status" : "Date already present in holiday list"}
             return jsonify(result)
         else:
