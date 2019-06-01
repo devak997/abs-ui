@@ -74,7 +74,7 @@ class App extends React.Component {
           <h1 class="ui centered header">Welcome To Automated Bell System</h1>
           <div className="login-form">
             <LoginPage loginUser={this.loginUser} />
-            <p>{ this.state.invalidLogin ? <ErrorDisplay headerData="Unable to Login" message="Invalid Creditnals" />: ""}</p>
+            {/* <p>{ this.state.invalidLogin ? <ErrorDisplay headerData="Unable to Login" message="Invalid Creditnals" />: ""}</p> */}
             <p>{this.state.error !== '' ?  <ErrorDisplay headerData="Unable to Login" message={this.state.error} /> : ""}</p>
           </div>
           <div className="home-display">
