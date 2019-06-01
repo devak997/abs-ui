@@ -87,17 +87,17 @@ def addBell():
     if data["time"] in currentScheduleList and data["isEndBell"]== True:
         currentSchedule.update({"time":data['time'],"delay":"3"},{"$set":{"delay":5}})
         removeBellsAfter(data["time"], currentScheduleList)
-        result = {"status":"Sucessfully updated in Database"}
+        result = {"status":"Successfully updated in database", "code": 1}
         return jsonify(result)
     else:
         if data["time"] in currentScheduleList:
-            result = {"status":"Bell is already present!"}
+            result = {"status":"Bell is already present", "code": 0}
             return jsonify(result)
         else:
             currentSchedule.insert({"time":data["time"],"delay":data["delay"], "status":"Not Rang"})
             if data["isEndBell"]==True:
                 removeBellsAfter(data["time"], currentScheduleList)
-            result = {"status":"Sucessfully updated in database"}
+            result = {"status":"Successfully updated in database", "code": 1}
             return jsonify(result)
             
 @app.route("/deleteBell", methods = ['POST'])
@@ -131,7 +131,7 @@ def getHolidays():
 def getLogs():
     output=[]
     for entry in logDetails.find():
-        output.append({"time":entry['time'],"date":entry['date']})
+        output.append({"time":entry['time'],"date":entry['Date']})
     return jsonify({"result":output})
 
 @app.route("/addHoliday", methods=['POST'])
@@ -140,14 +140,14 @@ def addHoliday():
     data = jsonRequest.get("data")
     holidayList = getHolidayFromCollection(list(holidayData.find({},{ "Date":1,"_id": 0})))
     if(data == None):
-        result = {'status': 'Entered date is less than current date'}
+        result = {'status': 'Entered date is less than current date', "code": 0}
         return jsonify(result)
     if('endDate' not in dict.keys(data)):
         if data["date"] in holidayList:
-            result = {"status" : "Date already present in holiday list"}
+            result = {"status" : "Date already present in holiday list", "code": 0}
             return jsonify(result)
         else:
-            result = {'status':"Successfully updated in holiday list"}
+            result = {'status':"Successfully updated in holiday list", "code": 1}
             holidayData.insert({"Date":data['date']})
             return jsonify(result)
 
@@ -161,21 +161,20 @@ def addHoliday():
         for i in range(delta.days + 1):
             holidays.append(startDate + timedelta(days=i))
         if(len(holidays)==0):
-            result = {"status":"End date must be greater than Start Date!"}
+            result = {"status":"End date must be greater than Start Date!", "code": 0}
             return jsonify(result)   
     
         if data["date"] in holidayList or data['endDate'] in holidayList:
             print("Date already present in holiday list")
-            result = {"status" : "Date already present in holiday list"}
+            result = {"status" : "Date already present in holiday list", "code": 0}
             return jsonify(result)
         else:
-            result = {'status':"Successfully updated in holiday list"}
+            result = {'status':"Successfully updated in holiday list", "code": 1}
             for days in holidays:
                 day = days.strftime('%d/%m/%Y')
                 print(day)
                 holidayData.insert({'Date':day})
             return jsonify(result)
-        
 @app.route('/deleteHoliday',methods=['POST'])
 def deleteHoliday():
     jsonRequest = bytesToJson(request.data)
@@ -200,4 +199,4 @@ def clearLog():
     return 'restored to defaults'
             
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0")  
+    app.run(host = "0.0.0.0")

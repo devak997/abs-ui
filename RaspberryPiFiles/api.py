@@ -140,14 +140,14 @@ def addHoliday():
     data = jsonRequest.get("data")
     holidayList = getHolidayFromCollection(list(holidayData.find({},{ "Date":1,"_id": 0})))
     if(data == None):
-        result = {'status': 'Entered date is less than current date'}
+        result = {'status': 'Entered date is less than current date', "code": 0}
         return jsonify(result)
     if('endDate' not in dict.keys(data)):
         if data["date"] in holidayList:
-            result = {"status" : "Date already present in holiday list"}
+            result = {"status" : "Date already present in holiday list", "code": 0}
             return jsonify(result)
         else:
-            result = {'status':"Successfully updated in holiday list"}
+            result = {'status':"Successfully updated in holiday list", "code": 1}
             holidayData.insert({"Date":data['date']})
             return jsonify(result)
 
@@ -161,21 +161,20 @@ def addHoliday():
         for i in range(delta.days + 1):
             holidays.append(startDate + timedelta(days=i))
         if(len(holidays)==0):
-            result = {"status":"End date must be greater than Start Date!"}
+            result = {"status":"End date must be greater than Start Date!", "code": 0}
             return jsonify(result)   
     
         if data["date"] in holidayList or data['endDate'] in holidayList:
             print("Date already present in holiday list")
-            result = {"status" : "Date already present in holiday list"}
+            result = {"status" : "Date already present in holiday list", "code": 0}
             return jsonify(result)
         else:
-            result = {'status':"Successfully updated in holiday list"}
+            result = {'status':"Successfully updated in holiday list", "code": 1}
             for days in holidays:
                 day = days.strftime('%d/%m/%Y')
                 print(day)
                 holidayData.insert({'Date':day})
             return jsonify(result)
-        
 @app.route('/deleteHoliday',methods=['POST'])
 def deleteHoliday():
     jsonRequest = bytesToJson(request.data)
