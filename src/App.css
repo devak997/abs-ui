@@ -1,18 +1,22 @@
 .app-login {
     width: 100%;
-    padding: 15px;
+    padding: 5px;
    
 }
+
+/* .app{
+    background-image: url('./Images/abstract.jpg');
+} */
 
 .login-form {
     width: 30%;
     display: inline-block;
     padding: 25px;
     border: solid black 2px;
-    margin-top: 7%;
+    margin-top: 4%;
     margin-left: 5%;
-    margin-right: 5%;
-    background-color: ghostwhite;
+    margin-right: 15%;
+    background-image: url(./Images/abstract.jpg);
 }
 
 .home-display {

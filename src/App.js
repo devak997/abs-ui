@@ -10,13 +10,14 @@ import LoginPage from "./Components/LoginPage/LoginPage";
 import HomeDisplay from "./Components/HomeDisplay/HomeDisplay";
 import Raspberry from "./api/Raspberry";
 import ErrorDisplay from "./Components/ErrorDisplay/ErrorDisplay";
+import logo from "./Images/logo.png";
 import "./App.css";
 
 class App extends React.Component {
   state = {
     schedule: [],
     invalidLogin: false,
-    error: ''
+    error: ""
   };
 
   componentDidMount() {
@@ -50,7 +51,7 @@ class App extends React.Component {
       })
       .catch(err => {
         console.log(err);
-        this.setState({error: err.message})
+        this.setState({ error: err.message });
       });
   };
 
@@ -70,12 +71,30 @@ class App extends React.Component {
       );
     } else {
       return (
-        <div className="app-login">
-          <h1 class="ui centered header">Welcome To Automated Bell System</h1>
+        <div>
+          <h1 className="ui centered header">Automated Bell System</h1>
           <div className="login-form">
             <LoginPage loginUser={this.loginUser} />
-            {/* <p>{ this.state.invalidLogin ? <ErrorDisplay headerData="Unable to Login" message="Invalid Creditnals" />: ""}</p> */}
-            <p>{this.state.error !== '' ?  <ErrorDisplay headerData="Unable to Login" message={this.state.error} /> : ""}</p>
+            <p>
+              {this.state.invalidLogin ? (
+                <ErrorDisplay
+                  headerData="Unable to Login"
+                  message="Invalid Creditnals"
+                />
+              ) : (
+                ""
+              )}
+            </p>
+            <p>
+              {this.state.error !== "" ? (
+                <ErrorDisplay
+                  headerData="Unable to Login"
+                  message={this.state.error}
+                />
+              ) : (
+                ""
+              )}
+            </p>
           </div>
           <div className="home-display">
             <HomeDisplay schedule={this.state.schedule} />
@@ -85,7 +104,21 @@ class App extends React.Component {
     }
   };
   render() {
-    return this.displayContent();
+    return (
+      <div>
+          <div style={{ backgroundColor: "#1b181a" }}>
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                display: "block",
+                marginLeft: "auto",
+                marginRight: "auto",
+                height: "70px"
+              }}
+            />
+          </div>
+    {this.displayContent()}</div>);
   }
 }
 

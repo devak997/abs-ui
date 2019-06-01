@@ -24,7 +24,7 @@ class LoginPage extends React.Component{
     render(){
         return (
             <div>
-                <h2 class="ui center aligned icon header">
+                <h2 className="ui center aligned icon header">
                     <i className="user huge user circle icon " />  Login
     </h2>
                 <form className="ui form">

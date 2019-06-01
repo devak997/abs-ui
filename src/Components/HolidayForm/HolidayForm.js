@@ -36,14 +36,14 @@ class HolidayForm extends React.Component {
       <div>
         <form className="ui form">
           <div className="field">
-            <lable>
+            <label>
               <i className="calendar icon" />
               Select Holiday Type
-            </lable>
+            </label>
           </div>
           <div className="field">
             <select
-              class="ui dropdown"
+              className="ui dropdown"
               id="selectHoliday"
               value={this.state.selectedOpt}
               onChange={this.handleChange}

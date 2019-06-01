@@ -70,6 +70,21 @@ def login():
         result={"login":False}
     return jsonify(result)
 
+@app.route('/changePassword', methods = ['POST'])  
+def changePassword():
+    data =  bytesToJson(request.data)
+    passowrdString = data['password']
+    password = h.sha256(passowrdString.encode()).hexdigest()
+    userList,passwordList = getUserInfo(list(userInfo.find({},{"username":1,"password":1,"_id":0})))
+    print(passwordList)
+    if password not in passwordList:
+        userInfo.update({"username":"admin"},{"$set":{"password":password}})
+        result = {'status':"Successfully changed password!", "code": 1}
+        return jsonify(result)
+    else:
+        result = {'status':"Old password can not be new password", "code": 0}
+        return jsonify(result)
+
 @app.route("/currentSchedule",methods = ['GET'])
 def getCurrentSchedule():
     output = []

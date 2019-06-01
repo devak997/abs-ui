@@ -12,7 +12,7 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <div className="ui inverted pointing menu">
+      <div className="ui inverted pointing menu" style={{borderRadius: '0'}}>
         <Link
           to="/"
           className={`item ${this.state.active === 1 ? "active" : ""}`}

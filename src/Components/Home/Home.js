@@ -18,7 +18,6 @@ class Home extends React.Component {
     Raspberry.get("/currentSchedule")
       .then(response => {
         if (response.status === 200) {
-          console.log(response);
           this.setState({
             schedule: response.data.result,
             loading: false,

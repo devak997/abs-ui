@@ -1,5 +1,6 @@
 import React from 'react'
 import './HomeDisplay.css'
+// import Clock from '../../Images/Clock.ico'
 
 class HomeDisplay extends React.Component {
     constructor(props) {
@@ -80,20 +81,21 @@ class HomeDisplay extends React.Component {
 
     render() {
         return (
-            <div class='container ui cards'>
-                <div class="prevCard ui black card">
-                    <div class="content">
-                        <div class="header">Previous Bell</div>
+            <div className='container ui cards'>
+               
+                <div className="prevCard ui black card">
+                    <div className="content">
+                        <div className="header">Previous Bell</div>
                     </div>
-                    <div class="content">
+                    <div className="content">
                         <h5>{this.prevBell()}</h5>
                     </div>
                 </div>
-                <div class="nextCard ui black card">
-                    <div class="content">
-                        <div class="header">Upcoming Bell</div>
+                <div className="nextCard ui black card">
+                    <div className="content">
+                        <div className="header">Upcoming Bell</div>
                     </div>
-                    <div class="content">
+                    <div className="content">
                         <h5>{this.nextBell()}</h5>
                     </div>
                 </div>

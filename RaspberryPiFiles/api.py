@@ -77,7 +77,8 @@ def getCurrentSchedule():
         output.append({ "time": entry['time'],"status":entry["status"], "duration": entry["delay"]})
     tempOutput = sorted(output, key = lambda val: val["time"])
     return jsonify({"result": tempOutput})
-            
+
+
     
 @app.route("/addBell", methods = ['POST'])
 def addBell():
