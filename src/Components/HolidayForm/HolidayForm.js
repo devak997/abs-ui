@@ -86,7 +86,7 @@ class HolidayForm extends React.Component {
             <div className="field">
               <label>
                 <i className="calendar icon" />
-                Date
+                Start Date
               </label>
               <div className="ui input">
                 <DatePicker
@@ -99,7 +99,7 @@ class HolidayForm extends React.Component {
             <div className="field">
               <label>
                 <i className="calendar icon" />
-                Date
+                End Date
               </label>
               <div className="ui input">
                 <DatePicker
