@@ -15,13 +15,8 @@ const ErrorDisplay = (props) => {
 };
 
 
-// const defaultProps = {
-//   showTry: true,
-//   headerData: "We're sorry we can't connect to the server!"
-// }
-const defaultProps = {
+ErrorDisplay.defaultProps = {
   showTry: true,
   headerData: "We're sorry we can't connect to the server!"
 }
->>>>>>> 09732c90f4fa9495e867951fc106c97fbcefe453
 export default ErrorDisplay;
