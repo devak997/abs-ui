@@ -104,6 +104,7 @@ class ScheduleDisplay extends React.Component {
           );
         } else {
           return (<ErrorDisplay
+          headerData="Error!"
             message={this.state.submitStatus}
             handleXClick={this.handleXClick}
           />);
